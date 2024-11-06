@@ -10,7 +10,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MaterialModule} from './material/material.module';
 import { MenuComponent } from './menu/menu.component';
 import { RatingComponent } from './utilidades/rating/rating.component';
-import { CicloDeVidaComponent } from './ciclo-de-vida/ciclo-de-vida.component'
+import { LandingPageComponent } from './landing-page/landing-page.component';
+import { CrearActorComponent } from './actores/crear-actor/crear-actor.component';
+import { EditarActorComponent } from './actores/editar-actor/editar-actor.component';
+import { IndiceActoresComponent } from './actores/indice-actores/indice-actores.component';
+import { CrearCineComponent } from './cines/crear-cine/crear-cine.component';
+import { EditarCineComponent } from './cines/editar-cine/editar-cine.component';
+import { IndiceCinesComponent } from './cines/indice-cines/indice-cines.component';
+import { CrearGeneroComponent } from './generos/crear-genero/crear-genero.component';
+import { EditarGeneroComponent } from './generos/editar-genero/editar-genero.component';
+import { IndiceGenerosComponent } from './generos/indice-generos/indice-generos.component';
+import { CrearPeliculaComponent } from './peliculas/crear-pelicula/crear-pelicula.component';
+import { EditarPeliculaComponent } from './peliculas/editar-pelicula/editar-pelicula.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +30,18 @@ import { CicloDeVidaComponent } from './ciclo-de-vida/ciclo-de-vida.component'
     ListadoGenericoComponent,
     MenuComponent,
     RatingComponent,
-    CicloDeVidaComponent
+    LandingPageComponent,
+    IndiceGenerosComponent,
+    CrearGeneroComponent,
+    IndiceActoresComponent,
+    CrearActorComponent,
+    CrearPeliculaComponent,
+    CrearCineComponent,
+    IndiceCinesComponent,
+    EditarActorComponent,
+    EditarGeneroComponent,
+    EditarCineComponent,
+    EditarPeliculaComponent,
   ],
   imports: [
     BrowserModule,
