@@ -12,6 +12,7 @@ import { IndiceGenerosComponent } from './generos/indice-generos/indice-generos.
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { CrearPeliculaComponent } from './peliculas/crear-pelicula/crear-pelicula.component';
 import { EditarPeliculaComponent } from './peliculas/editar-pelicula/editar-pelicula.component';
+import { FiltroPeliculasComponent } from './peliculas/filtro-peliculas/filtro-peliculas.component';
 
 const routes: Routes = [
   {path: '', component: LandingPageComponent},
@@ -26,11 +27,12 @@ const routes: Routes = [
   {path: 'cines/editar/:id', component: EditarCineComponent},
   {path: 'peliculas/crear', component: CrearPeliculaComponent},
   {path: 'peliculas/editar/:id', component: EditarPeliculaComponent},
+  {path: 'peliculas/buscar', component: FiltroPeliculasComponent},
   {path: '**', redirectTo: ''}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

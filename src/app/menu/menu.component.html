@@ -1,9 +1,21 @@
-<mat-toolbar color="primary">
+ <mat-toolbar color="primary">
+  <p>{{isSmallScreen}}</p>
+    <div>
+    <button mat-icon-button>
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
   <span>
     <a routerLink="" mat-button>
       <mat-icon>local_movies</mat-icon> Angular Películas
     </a>
   </span>
+
+  <div>
+    <a mat-button routerLink="peliculas/buscar">
+      <mat-icon>search</mat-icon>Buscar Películas</a
+    >
+  </div>
 
   <div>
     <a mat-button routerLink="generos">Géneros</a>
@@ -20,4 +32,4 @@
   <div>
     <a mat-button routerLink="peliculas/crear">Crear Película</a>
   </div>
-</mat-toolbar>
+</mat-toolbar> 

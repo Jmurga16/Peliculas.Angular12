@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'app-menu',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  constructor(private breakpointObserver: BreakpointObserver) { }
 
+  isSmallScreen = this.breakpointObserver.isMatched('(max-width: 599px)');
+  @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
   ngOnInit(): void {
+  }
+
+  abrirCerrar = true;
+ 
+
+  toggle(algo): void{
+    // if (this.abrirCerrar){
+    //   this.trigger.openMenu();
+    // }
+    // else{
+    //   this.trigger.closeMenu();
+    // }
+    // this.abrirCerrar = !this.abrirCerrar;
   }
 
 }
