@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { actorPeliculaDTO } from 'src/app/actores/actor';
 import { generoCreacionDTO } from 'src/app/generos/genero';
 import { MultipleSelectorModel } from 'src/app/utilidades/selector-multiple/MultipleSelectorModel';
 import { PeliculaCreacionDTO, PeliculaDTO } from '../pelicula';
@@ -15,6 +16,9 @@ export class FormularioPeliculaComponent implements OnInit {
   form: FormGroup;
 
   @Input()
+  errores: string[] = [];
+
+  @Input()
   modelo: PeliculaDTO;
 
   @Output()
@@ -22,21 +26,22 @@ export class FormularioPeliculaComponent implements OnInit {
     PeliculaCreacionDTO
   >();
 
-  generosNoSeleccionados: MultipleSelectorModel[] = [
-    { llave: 1, valor: 'Drama' },
-    { llave: 2, valor: 'Acción' },
-    { llave: 3, valor: 'Comedia' },
-  ];
+  @Input()
+  generosNoSeleccionados: MultipleSelectorModel[];
 
+  @Input()
   generosSeleccionados: MultipleSelectorModel[] = [];
 
-  cinesNoSeleccionados: MultipleSelectorModel[] = [
-    {llave: 1, valor: 'Sambil'},
-    {llave: 2, valor: 'Agora'},
-    {llave: 3, valor: 'Acrópolis'}
-  ]
+  @Input()
+  cinesNoSeleccionados: MultipleSelectorModel[];
 
+  @Input()
   cinesSeleccionados: MultipleSelectorModel[] = [];
+
+  @Input()
+  actoresSeleccionados: actorPeliculaDTO[] = [];
+
+  imagenCambiada = false;
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -49,10 +54,11 @@ export class FormularioPeliculaComponent implements OnInit {
       resumen: '',
       enCines: false,
       trailer: '',
-      fechaLanzamiento: '',
+      fechaLanzamiento: '', 
       poster: '',
-      generosId: '',
-      cinesId: ''
+      generosIds: '',
+      cinesIds: '',
+      actores: ''
     });
 
     if (this.modelo !== undefined) {
@@ -62,6 +68,7 @@ export class FormularioPeliculaComponent implements OnInit {
 
   archivoSeleccionado(archivo: File) {
     this.form.get('poster').setValue(archivo);
+    this.imagenCambiada = true;
   }
 
   changeMarkdown(texto) {
@@ -70,10 +77,19 @@ export class FormularioPeliculaComponent implements OnInit {
 
   guardarCambios() {
     const generosIds = this.generosSeleccionados.map(val => val.llave);
-    this.form.get('generosId').setValue(generosIds);
+    this.form.get('generosIds').setValue(generosIds);
 
     const cinesIds = this.cinesSeleccionados.map(val => val.llave);
-    this.form.get('cinesId').setValue(cinesIds);
+    this.form.get('cinesIds').setValue(cinesIds);
+
+    const actores = this.actoresSeleccionados.map(val => {
+      return {id: val.id, personaje: val.personaje}
+    });
+    this.form.get('actores').setValue(actores);
+
+    if (!this.imagenCambiada){
+      this.form.patchValue({'poster': null});
+    }
 
     this.OnSubmit.emit(this.form.value);
   }
