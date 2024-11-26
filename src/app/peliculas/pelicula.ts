@@ -2,7 +2,7 @@ import { actorPeliculaDTO } from '../actores/actor';
 import { cineDTO } from '../cines/cine';
 import { generoDTO } from '../generos/genero';
 
-export interface PeliculaCreacionDTO{
+export interface PeliculaCreacionDTO {
     titulo: string;
     resumen: string;
     enCines: boolean;
@@ -14,7 +14,7 @@ export interface PeliculaCreacionDTO{
     cinesIds: number[];
 }
 
-export interface PeliculaDTO{
+export interface PeliculaDTO {
     id: number;
     titulo: string;
     resumen: string;
@@ -25,6 +25,8 @@ export interface PeliculaDTO{
     generos: generoDTO[];
     actores: actorPeliculaDTO[];
     cines: cineDTO[];
+    votoUsuario: number;
+    promedioVoto: number;
 }
 
 export interface PeliculaPostGet {
