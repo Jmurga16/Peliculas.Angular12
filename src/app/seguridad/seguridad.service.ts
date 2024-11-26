@@ -9,24 +9,68 @@ import { environment } from 'src/environments/environment';
 })
 export class SeguridadService {
 
+  apiURL = environment.apiURL + 'cuentas'
+  private readonly llaveToken = 'token'
+  private readonly llaveExpiracion = 'token-expiracion'
+
   constructor(
     private httpClient: HttpClient
   ) {
 
   }
 
-  apiURL = environment.apiURL + 'cuentas'
+
 
   estaLogueado(): boolean {
-    return false;
+    const token = localStorage.getItem(this.llaveToken)
+
+    if (!token) {
+      return false
+    }
+
+    const expiracion = localStorage.getItem(this.llaveExpiracion)
+    const expiracionFecha = new Date(expiracion);
+
+    if (expiracionFecha <= new Date()) {
+      return false
+    }
+
+    return true;
+  }
+
+  logout() {
+    localStorage.removeItem(this.llaveToken);
+    localStorage.removeItem(this.llaveExpiracion);
   }
 
   obtenerRol(): string {
     return 'admin';
   }
 
-  registrar(credencialesUsuario: credencialesUsuario): Observable<respuestaAutenticacion> {
+  obtenerCampoJWT(campo: string): string {
+    const token = localStorage.getItem(this.llaveToken)
 
+    if (!this.llaveToken) {
+      return ''
+    }
+
+    var dataToken = JSON.parse(atob(token.split('.')[1]));
+
+    return dataToken[campo]
+  }
+
+  registrar(credencialesUsuario: credencialesUsuario): Observable<respuestaAutenticacion> {
     return this.httpClient.post<respuestaAutenticacion>(this.apiURL + '/crear', credencialesUsuario)
   }
+
+  guardarToken(respuestaAutenticacion: respuestaAutenticacion) {
+    localStorage.setItem(this.llaveToken, respuestaAutenticacion.token);
+    localStorage.setItem(this.llaveExpiracion, respuestaAutenticacion.expiracion.toString());
+  }
+
+  login(credencialesUsuario: credencialesUsuario): Observable<respuestaAutenticacion> {
+    return this.httpClient.post<respuestaAutenticacion>(this.apiURL + '/login', credencialesUsuario)
+  }
+
+
 }
