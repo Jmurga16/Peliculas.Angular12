@@ -12,7 +12,7 @@ export function parsearErroresAPI(response: any): string[] {
 
   console.log(response.status);
 
-  if (response.status === 500){
+  if (response.status === 500) {
     resultado.push('Ha ocurrido un error en el servidor. Favor intentar más tarde');
     return resultado;
   }
@@ -20,7 +20,11 @@ export function parsearErroresAPI(response: any): string[] {
   if (response.error) {
     if (typeof response.error === 'string') {
       resultado.push(response.error);
-    } else {
+    }
+    else if (Array.isArray(response.error)) {
+      response.error.forEach(valor => resultado.push(valor.description))
+    }
+    else {
       const mapaErrores = response.error.errors;
       const entradas = Object.entries(mapaErrores);
       entradas.forEach((arreglo: any[]) => {
@@ -42,11 +46,11 @@ export function formatearFecha(date: Date) {
     month: '2-digit',
     day: '2-digit',
   });
-  
+
   const [
-      {value: month},,
-      {value: day},,
-      {value: year}
+    { value: month }, ,
+    { value: day }, ,
+    { value: year }
   ] = formato.formatToParts(date);
 
   return `${year}-${month}-${day}`;
