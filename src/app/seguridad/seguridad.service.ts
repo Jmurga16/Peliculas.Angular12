@@ -50,7 +50,7 @@ export class SeguridadService {
   obtenerCampoJWT(campo: string): string {
     const token = localStorage.getItem(this.llaveToken)
 
-    if (!this.llaveToken) {
+    if (!token) {
       return ''
     }
 
@@ -72,5 +72,8 @@ export class SeguridadService {
     return this.httpClient.post<respuestaAutenticacion>(this.apiURL + '/login', credencialesUsuario)
   }
 
+  obtenerToken() {
+    return localStorage.getItem(this.llaveToken)
+  }
 
 }
